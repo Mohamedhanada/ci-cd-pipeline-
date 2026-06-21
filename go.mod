@@ -1,6 +1,6 @@
 module example.com/cicd-pipeline
 
-go 1.26.4
+go 1.18
 
 require github.com/gofiber/fiber/v2 v2.52.13
 
