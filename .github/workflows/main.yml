@@ -1,0 +1,33 @@
+
+name: Integration
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6           # any languge i need action for it  , can search  (name language + github actions)
+  # like go or  install node githuyb actions 
+        with:         # طالما هستخدم اكشن لازم يجي معاها وز و وز بتعبرالمعاملات اللي بتاخد ارجيومينت او فاليو زي مثلا انا عاوز اخر اصدار من جو
+          go-version: '1.18'
+          cache: true
+
+      - name: Build
+        env:
+          CGO_ENABLED: 0  # دي معناها تعمل disbale for cgo libraries
+        run: |
+          echo "Building the project..."
+          echo "Go version: $(go version)"
+          echo "GOPATH: $GOPATH"
+          echo "CGO_ENABLED: $CGO_ENABLED"     
+          go build
+
+      - name: Run Tests
+        run: |
+          echo "Running tests..."
+          go test 
+      
