@@ -11,6 +11,7 @@ jobs:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]  
         go_version: ['1.26.4']  # هنا هعمل تيست علي اكتر من فيرجن للجو
+    runs_on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
       - name: Set up Go
@@ -24,6 +25,9 @@ jobs:
           CGO_ENABLED: 0
         run: |
           go build ./...
+          echo "Build completed successfully."
+          echo "Go version: $(go version)"
+          echo" Operating System: $(go_version)"
 
       - name: Run Tests
         run: |
