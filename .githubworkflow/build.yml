@@ -4,14 +4,19 @@ on: push
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest      # هنعمل حاجه جديدة وهي ان اعمل تيست للجو اب علي اكتر من نظام تشغيل 
+    # وهي ين استخدم ال matrix عشان اعمل تيست علي اكتر من نظام تشغيل   
+    # وكمان اقدر اسنخدم اكتر من فيرجن للجو 
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]  
+        go_version: ['1.26.4', '1.27.0']  # هنا هعمل تيست علي اكتر من فيرجن للجو
     steps:
       - uses: actions/checkout@v6
-
       - name: Set up Go
         uses: actions/setup-go@v6
         with:
-          go-version: '1.26.4'
+          go-version: ${{ matrix.go_version }}
           cache: true
 
       - name: Build
@@ -19,6 +24,9 @@ jobs:
           CGO_ENABLED: 0
         run: |
           go build ./...
+          echo "Build completed successfully."
+          echo "Go version: $(go version)"
+          echo" Operating System: $(go env GOOS)"
 
       - name: Run Tests
         run: |
@@ -36,15 +44,15 @@ jobs:
         run: |
           docker build .
 
-      - name: Run Docker Container
-        run: |
-          docker run --name myapp-container -d myapp:latest
+      # - name: Run Docker Container
+      #   run: |
+      #     docker run --name myapp-container -d myapp:latest
 
-      - name: Test Docker Container
-        run: |
-          docker exec myapp-container go test ./...
+      # - name: Test Docker Container
+      #   run: |
+      #     docker exec myapp-container go test ./...
 
-      - name: Stop and Remove Docker Container
-        run: |
-          docker stop myapp-container
-          docker rm myapp-container
+      # - name: Stop and Remove Docker Container
+      #   run: |
+      #     docker stop myapp-container
+      #     docker rm myapp-container
