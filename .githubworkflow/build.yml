@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]  
-        go_version: ['1.26.4', '1.27.0']  # هنا هعمل تيست علي اكتر من فيرجن للجو
+        go_version: ['1.26.4', '1.25.3','1.26.0']  # هنا هعمل تيست علي اكتر من فيرجن للجو
     steps:
       - uses: actions/checkout@v6
       - name: Set up Go
@@ -26,7 +26,7 @@ jobs:
           go build ./...
           echo "Build completed successfully."
           echo "Go version: $(go version)"
-          echo" Operating System: $(go env GOOS)"
+          echo" Operating System: $(os)"
 
       - name: Run Tests
         run: |
