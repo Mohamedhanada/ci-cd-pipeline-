@@ -9,8 +9,14 @@ jobs:
     # وكمان اقدر اسنخدم اكتر من فيرجن للجو 
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]  
-        go_version: ['1.26.4']  # هنا هعمل تيست علي اكتر من فيرجن للجو
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+        go_version: 
+          - 1.26.4
+          - 1.26.3
+          - 1.26.2  # هنا هعمل تيست علي اكتر من فيرجن للجو
     runs_on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
