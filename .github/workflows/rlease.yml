@@ -8,7 +8,7 @@ name : Release
 jobs:
   release:
     name: Release    
-    runs_on: ubuntu_20.04
+    runs-on: ubuntu_20.04
     env: 
       DOCKER_REBO: moha983/release_go
     steps:
